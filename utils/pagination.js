@@ -9,7 +9,7 @@ const paginate = (query, data, serializer = null) => {
     const end = size * page;
     const result = data.slice(start, end);
     return {
-        data:  serializer ? result.map((item) => serializer(item)) : result,
+        data: serializer ? result.map((item) => serializer(item)) : result,
         meta: {
             totalData: data.length,
             totalPage: maxPage,
