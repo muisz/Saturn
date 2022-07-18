@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "NODE_ENV=production node index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest --runInBand"
   },
   "author": "Muhamad Abdul Muis",
   "license": "ISC",

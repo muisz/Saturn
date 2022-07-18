@@ -10,8 +10,11 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    "ignorePatterns": ["/tests/", "jest.js"],
     "rules": {
         "no-console": "off",
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "max-len": ["error", 120],
+        "no-unused-vars": "off"
     }
 }
