@@ -9,3 +9,104 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Seller {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  email String @db.VarChar(100) @unique
+  password String @db.VarChar(255)
+  phoneNumber String @db.VarChar(20) @unique
+  isDeleted Boolean @default(false)
+  lastLogin DateTime?
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+  dateDeleted DateTime?
+
+  // relations
+  shop Shop?
+}
+
+model Shop {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  description String?
+  seller Seller @relation(fields: [sellerId], references: [id])
+  sellerId Int @unique
+  province String @db.VarChar(100)
+  city String @db.VarChar(100)
+  isDeleted Boolean @default(false)
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+  dateDeleted DateTime?
+
+  // relations
+  product Product[]
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  description String?
+  price Float?
+  priceIsRange Boolean
+  priceStart Float?
+  priceEnd Float?
+  stock Int @default(1)
+  shop Shop @relation(fields: [shopId], references: [id])
+  shopId Int
+  isDeleted Boolean @default(false)
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+  dateDeleted DateTime?
+
+  // relations
+  variant ProductVariant[]
+  media ProductMedia[]
+  spec ProductSpec[]
+  category ProductCategory[]
+}
+
+model ProductVariant {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  value String @db.VarChar(100)
+  hasPrice Boolean
+  price Float?
+  stock Int @default(1)
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  isDeleted Boolean @default(false)
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+  dateDeleted DateTime?
+}
+
+model ProductMedia {
+  id Int @id @default(autoincrement())
+  url String?
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  isDeleted Boolean @default(false)
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+  dateDeleted DateTime?
+}
+
+model ProductSpec {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  value String? @db.VarChar(200)
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+}
+
+model ProductCategory {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  dateCreated DateTime @default(now())
+  dateUpdated DateTime?
+}
