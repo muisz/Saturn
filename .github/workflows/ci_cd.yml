@@ -1,0 +1,39 @@
+name: Saturn API CI/CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  DATABASE_URL_TEST: postgresql://postgres:password@localhost:5432/saturn?schema=public
+  JWT_ACCESS_KEY: some-jwt-access-key
+  JWT_REFRESH_KEY: some-jwt-refresh-key
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: saturn
+        ports:
+          - 5432:5432
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Nodejs Version
+        with:
+          node-version: "14"
+          cache: "npm"
+      - name: Install Dependencies
+        run: npm install
+      - name: Migrate Database
+        run: npx prisma migrate dev
+      - name: Run Test
+        run: npm test
