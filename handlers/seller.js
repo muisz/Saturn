@@ -24,8 +24,12 @@ const createSellerHandler = async (request, h) => {
             email,
             phoneNumber,
             password: hash.hashPassword(password),
+            lastLogin: new Date().toISOString(),
         });
-        const response = helpers.serializer(seller);
+        const response = {
+            ...helpers.serializer(seller),
+            ...helpers.getUserToken(seller),
+        };
         return h.response({
             status: 'success',
             data: response,

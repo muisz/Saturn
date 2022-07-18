@@ -67,7 +67,7 @@ const serializer = (data) => ({
     id: data.id,
     name: data.name,
     email: data.email,
-    phone: data.phone,
+    phoneNumber: data.phoneNumber,
     lastLogin: data.lastLogin,
     dateCreated: data.dateCreated,
     dateUpdated: data.dateUpdated,
