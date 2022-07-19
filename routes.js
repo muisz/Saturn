@@ -7,7 +7,7 @@ const routes = [
         path: '/sellers/register',
         handler: sellerHandlers.createSellerHandler,
         options: {
-            auth: false,
+            auth: 'apikey',
         },
     },
     {
@@ -15,7 +15,7 @@ const routes = [
         path: '/sellers/login',
         handler: sellerHandlers.loginSellerHandler,
         options: {
-            auth: false,
+            auth: 'apikey',
         },
     },
 ];

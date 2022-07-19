@@ -1,5 +1,8 @@
 const boom = require('@hapi/boom');
 const jwt = require('../utils/token');
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
 
 const JwtAuth = (server, options) => ({
     async authenticate(request, h) {
@@ -27,6 +30,28 @@ const JwtAuth = (server, options) => ({
     },
 });
 
+const APIKeyAuth = (server, options) => ({
+    async authenticate(request, h) {
+        try {
+            const { headers, auth } = request;
+            const { credentials } = auth;
+            const apikey = headers['x-api-key'];
+            const api = await prisma.apiKey.findFirst({ where: { key: apikey } });
+            if (!api) {
+                return boom.unauthorized('Unauthorized API');
+            }
+            return h.authenticated({
+                credentials: credentials ? { ...credentials, apikey } : { apikey },
+                artifacts: null,
+            });
+        } catch (err) {
+            console.log(err);
+            return boom.unauthorized('Unauthorized API');
+        }
+    }
+});
+
 module.exports = {
     JwtAuth,
+    APIKeyAuth,
 };
