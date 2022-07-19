@@ -23,7 +23,9 @@ const routes = [
         path: '/sellers/{id}',
         handler: sellerHandlers.detailSellerHandler,
         options: {
-            auth: ['apikey', 'jwt'],
+            auth: {
+                strategies: ['apikey', 'jwt'],
+            },
         },
     },
     {
@@ -31,7 +33,9 @@ const routes = [
         path: '/sellers/{id}',
         handler: sellerHandlers.updateSellerHandler,
         options: {
-            auth: ['apikey', 'jwt'],
+            auth: {
+                strategies: ['apikey', 'jwt'],
+            },
         },
     },
     {
