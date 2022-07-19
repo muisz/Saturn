@@ -36,6 +36,9 @@ const APIKeyAuth = (server, options) => ({
             const { headers, auth } = request;
             const { credentials } = auth;
             const apikey = headers['x-api-key'];
+            if (!apikey) {
+                return boom.unauthorized('Unauthorized API');
+            }
             const api = await prisma.apiKey.findFirst({ where: { key: apikey } });
             if (!api) {
                 return boom.unauthorized('Unauthorized API');
