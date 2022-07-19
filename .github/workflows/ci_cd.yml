@@ -28,14 +28,21 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+      
       - name: Setup Nodejs Version
         uses: actions/setup-node@v2
         with:
           node-version: "14"
           cache: "npm"
+      
       - name: Install Dependencies
         run: npm install
+      
       - name: Migrate Database
         run: npx prisma migrate dev
+      
+      - name: Run Seed
+        run: npx prisma db seed
+      
       - name: Run Test
         run: npm test

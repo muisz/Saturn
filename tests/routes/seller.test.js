@@ -2,6 +2,9 @@ const { initialize } = require('../../server');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
+const headers = {
+    'x-api-key': 'testingapi',
+};
 let server = null;
 
 beforeEach(async () => {
@@ -28,6 +31,7 @@ describe('POST /sellers/register [Success]', () => {
             method: 'POST',
             url: '/sellers/register',
             payload,
+            headers,
         });
     });
 
@@ -65,11 +69,13 @@ describe('POST /sellers/register [Failed: Email Already Exist]', () => {
             method: 'POST',
             url: '/sellers/register',
             payload,
+            headers,
         });
         response = await server.inject({
             method: 'POST',
             url: '/sellers/register',
             payload: { ...payload, phoneNumber: '382932' },
+            headers,
         });
     });
 
@@ -104,11 +110,13 @@ describe('POST /sellers/register [Failed: Phone Number Already Exist]', () => {
             method: 'POST',
             url: '/sellers/register',
             payload,
+            headers,
         });
         response = await server.inject({
             method: 'POST',
             url: '/sellers/register',
             payload: { ...payload, email: 'abdulmuis@gmail.com' },
+            headers,
         });
     });
 
@@ -143,11 +151,13 @@ describe('POST /sellers/login [Success: With Email]', () => {
             method: 'POST',
             url: '/sellers/register',
             payload,
+            headers,
         });
         response = await server.inject({
             method: 'POST',
             url: '/sellers/login',
             payload: { email: payload.email, password: payload.password },
+            headers,
         });
     });
 
@@ -195,11 +205,13 @@ describe('POST /sellers/login [Success: With Phone Number]', () => {
             method: 'POST',
             url: '/sellers/register',
             payload,
+            headers,
         });
         response = await server.inject({
             method: 'POST',
             url: '/sellers/login',
             payload: { phoneNumber: payload.phoneNumber, password: payload.password },
+            headers,
         });
     });
 
