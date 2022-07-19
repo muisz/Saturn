@@ -34,11 +34,16 @@ const createSellerHandler = async (request, h) => {
             referenceName: tokenConstant.referenceName.SELLER,
             referenceId: seller.id,
         });
-        emailHelpers.sendEmail(seller.email, emailTemplate.emailVerification, {
-            name: seller.name,
-            redirectUrl: process.env.FORGOT_PASSWORD_REDIRECT_URL,
-            token: tokenData.token,
-        });
+        emailHelpers.sendEmail(
+            seller.email,
+            "Email Verification",
+            emailTemplate.emailVerification,
+            {
+                name: seller.name,
+                redirectUrl: process.env.EMAIL_VERIFICATION_REDIRECT_URL,
+                token: tokenData.token,
+            },
+        );
         const response = {
             ...helpers.serializer(seller),
             ...helpers.getUserToken(seller),
@@ -145,11 +150,16 @@ const updateSellerHandler = async (request, h) => {
                 referenceName: tokenConstant.referenceName.SELLER,
                 referenceId: seller.id,
             });
-            emailHelpers.sendEmail(seller.email, emailTemplate.emailVerification, {
-                name: seller.name,
-                redirectUrl: process.env.FORGOT_PASSWORD_REDIRECT_URL,
-                token: tokenData.token,
-            });
+            emailHelpers.sendEmail(
+                seller.email,
+                "Email Verification",
+                emailTemplate.emailVerification,
+                {
+                    name: seller.name,
+                    redirectUrl: process.env.EMAIL_VERIFICATION_REDIRECT_URL,
+                    token: tokenData.token,
+                },
+            );
         }
         const response = helpers.serializer(updated);
         return h.response({
@@ -217,11 +227,16 @@ const sendEmailForgotPasswordTokenHandler = async (request, h) => {
         referenceName: tokenConstant.referenceName.SELLER,
         referenceId: seller.id,
     });
-    emailHelpers.sendEmail(seller.email, emailTemplate.forgotPassword, {
-        name: seller.name,
-        redirectUrl: process.env.FORGOT_PASSWORD_REDIRECT_URL,
-        token: token.token,
-    });
+    emailHelpers.sendEmail(
+        seller.email,
+        "Forgot Password",
+        emailTemplate.forgotPassword,
+        {
+            name: seller.name,
+            redirectUrl: process.env.FORGOT_PASSWORD_REDIRECT_URL,
+            token: token.token,
+        },
+    );
     return h.response({
         status: 'success',
         message: 'Email Sent',
