@@ -10,7 +10,7 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
-    "ignorePatterns": ["/tests/", "jest.js", "/templates/"],
+    "ignorePatterns": ["/tests/", "jest.js", "/templates/", "/prisma/"],
     "rules": {
         "no-console": "off",
         "indent": ["error", 4],
