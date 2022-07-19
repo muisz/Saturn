@@ -57,8 +57,6 @@ const getUserToken = (user) => {
         name: user.name,
         email: user.email,
         phoneNumber: user.phoneNumber,
-        profilePicture: user.profilePicture,
-        isVerifiedEmail: user.isVerifiedEmail,
     };
     const accessToken = jwt.generateToken(payload);
     const refreshToken = jwt.generateToken(payload, 12, jwt.tokenType.refreshToken);
@@ -70,6 +68,8 @@ const serializer = (data) => ({
     name: data.name,
     email: data.email,
     phoneNumber: data.phoneNumber,
+    profilePicture: data.profilePicture,
+    isVerifiedEmail: data.isVerifiedEmail,
     lastLogin: data.lastLogin,
     dateCreated: data.dateCreated,
     dateUpdated: data.dateUpdated,

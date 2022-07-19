@@ -241,7 +241,7 @@ const forgotPasswordHandler = async (request, h) => {
     }
     const seller = await helpers.getSellerById(tokenData.referenceId);
     if (!seller) {
-        return boom.notAcceptable('Seller Not Found');
+        return boom.notFound('Seller Not Found');
     }
     await helpers.updateSellerById(seller.id, {
         password: hash.hashPassword(password),
