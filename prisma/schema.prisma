@@ -17,12 +17,22 @@ model ApiKey {
   dateCreated DateTime @default(now())
 }
 
+model Token {
+  id Int @id @default(autoincrement())
+  token String @db.VarChar(20) @unique
+  referenceName String @db.VarChar(100)
+  referenceId Int
+  dateCreated DateTime @default(now())
+}
+
 model Seller {
   id Int @id @default(autoincrement())
   name String @db.VarChar(100)
   email String @db.VarChar(100) @unique
   password String @db.VarChar(255)
   phoneNumber String @db.VarChar(20) @unique
+  profilePicture String?
+  isVerifiedEmail Boolean @default(false)
   isDeleted Boolean @default(false)
   lastLogin DateTime?
   dateCreated DateTime @default(now())

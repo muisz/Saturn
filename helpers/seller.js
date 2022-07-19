@@ -40,13 +40,13 @@ const deleteSellerById = (id) => new Promise((resolve, reject) => {
 });
 
 const getSellerByEmail = (email) => new Promise((resolve, reject) => {
-    prisma.seller.findFirst({ where: { email } })
+    prisma.seller.findFirst({ where: { email, isDeleted: false } })
         .then((resp) => resolve(resp))
         .catch((err) => reject(err));
 });
 
 const getSellerByPhoneNumber = (phone) => new Promise((resolve, reject) => {
-    prisma.seller.findFirst({ where: { phoneNumber: phone } })
+    prisma.seller.findFirst({ where: { phoneNumber: phone, isDeleted: false } })
         .then((resp) => resolve(resp))
         .catch((err) => reject(err));
 });
@@ -57,6 +57,8 @@ const getUserToken = (user) => {
         name: user.name,
         email: user.email,
         phoneNumber: user.phoneNumber,
+        profilePicture: user.profilePicture,
+        isVerifiedEmail: user.isVerifiedEmail,
     };
     const accessToken = jwt.generateToken(payload);
     const refreshToken = jwt.generateToken(payload, 12, jwt.tokenType.refreshToken);
