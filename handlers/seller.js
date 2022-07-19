@@ -34,7 +34,7 @@ const createSellerHandler = async (request, h) => {
             referenceName: tokenConstant.referenceName.SELLER,
             referenceId: seller.id,
         });
-        emailHelpers.sendEmail(seller.email, emailTemplate.forgotPassword, {
+        emailHelpers.sendEmail(seller.email, emailTemplate.emailVerification, {
             name: seller.name,
             redirectUrl: process.env.FORGOT_PASSWORD_REDIRECT_URL,
             token: tokenData.token,
@@ -145,7 +145,7 @@ const updateSellerHandler = async (request, h) => {
                 referenceName: tokenConstant.referenceName.SELLER,
                 referenceId: seller.id,
             });
-            emailHelpers.sendEmail(seller.email, emailTemplate.forgotPassword, {
+            emailHelpers.sendEmail(seller.email, emailTemplate.emailVerification, {
                 name: seller.name,
                 redirectUrl: process.env.FORGOT_PASSWORD_REDIRECT_URL,
                 token: tokenData.token,
