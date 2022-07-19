@@ -4,6 +4,12 @@ const tokenHelpers = require('../../helpers/token');
 const tokenConstant = require('../../constants/token');
 
 const prisma = new PrismaClient();
+const payload = {
+    name: 'Abdul Muis',
+    email: 'dev.abdulmuis@gmail.com',
+    phoneNumber: '08362532',
+    password: 'testing',
+};
 const headers = {
     'x-api-key': 'testingapi',
 };
@@ -20,13 +26,6 @@ afterEach(async () => {
 });
 
 describe('POST /sellers/register [Success]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
-
     let response = null;
 
     beforeEach(async () => {
@@ -59,12 +58,6 @@ describe('POST /sellers/register [Success]', () => {
 });
 
 describe('POST /sellers/register [Failed: Email Already Exist]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -100,12 +93,6 @@ describe('POST /sellers/register [Failed: Email Already Exist]', () => {
 });
 
 describe('POST /sellers/register [Failed: Phone Number Already Exist]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -141,12 +128,6 @@ describe('POST /sellers/register [Failed: Phone Number Already Exist]', () => {
 });
 
 describe('POST /sellers/login [Success: With Email]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -195,12 +176,6 @@ describe('POST /sellers/login [Success: With Email]', () => {
 });
 
 describe('POST /sellers/login [Success: With Phone Number]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -249,12 +224,6 @@ describe('POST /sellers/login [Success: With Phone Number]', () => {
 });
 
 describe('GET /sellers/{id} [Success]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -291,12 +260,6 @@ describe('GET /sellers/{id} [Success]', () => {
 });
 
 describe('GET /sellers/{id} [Failed: Not Found]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -331,12 +294,6 @@ describe('GET /sellers/{id} [Failed: Not Found]', () => {
 });
 
 describe('PUT /sellers/{id} [Success: Without Change Email]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     const newPayload = {
         name: 'Abdul Muis (updated)',
         email: payload.email,
@@ -386,12 +343,6 @@ describe('PUT /sellers/{id} [Success: Without Change Email]', () => {
 });
 
 describe('PUT /sellers/{id} [Success: With Change Email]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     const newPayload = {
         name: 'Abdul Muis (updated)',
         email: 'abdulmuis1009@gmail.com',
@@ -461,12 +412,6 @@ describe('PUT /sellers/{id} [Success: With Change Email]', () => {
 });
 
 describe('PUT /sellers/{id} [Failed: Not Found]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     const newPayload = {
         name: 'Abdul Muis (updated)',
         email: payload.email,
@@ -507,12 +452,6 @@ describe('PUT /sellers/{id} [Failed: Not Found]', () => {
 });
 
 describe('GET /sellers/verification/email [Success]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
     let updated_response = null;
 
@@ -615,12 +554,6 @@ describe('GET /sellers/verification/email [Failed: Empty Token]', () => {
 });
 
 describe('GET /sellers/forgot-password [Success]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
@@ -765,12 +698,6 @@ describe('GET /sellers/forgot-password [Failed: Seller Not Found]', () => {
 });
 
 describe('POST /sellers/forgot-password [Success]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     const newPayload = {
         password: 'testing-updated',
     };
@@ -862,12 +789,6 @@ describe('POST /sellers/forgot-password [Failed: Token Not Found]', () => {
 });
 
 describe('POST /sellers/forgot-password [Failed: Seller Not Found]', () => {
-    const payload = {
-        name: 'Abdul Muis',
-        email: 'dev.abdulmuis@gmail.com',
-        phoneNumber: '08362532',
-        password: 'testing',
-    };
     let response = null;
 
     beforeEach(async () => {
