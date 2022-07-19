@@ -1,4 +1,4 @@
-const amqp = require('amqplib');
+const amqp = require('amqplib/callback_api');
 
 class RabbitMQ {
     constructor() {
