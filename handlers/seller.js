@@ -105,7 +105,7 @@ const detailSellerHandler = async (request, h) => {
         status: 'success',
         data: response,
     });
-}
+};
 
 //
 // PUT /sellers/{id}
@@ -231,31 +231,27 @@ const sendEmailForgotPasswordTokenHandler = async (request, h) => {
 //
 // POST /sellers/forgot-password
 const forgotPasswordHandler = async (request, h) => {
-    try {
-        const { password, token } = request.payload;
-        const tokenData = await tokenHelpers.getTokenData(token);
-        if (!tokenData) {
-            return boom.notFound('Token Not Found');
-        }
-        if (tokenData.referenceName !== tokenConstant.referenceName.SELLER) {
-            return boom.notFound('Token Not Found');
-        }
-        const seller = await helpers.getSellerById(tokenData.referenceId);
-        if (!seller) {
-            return boom.notAcceptable('Seller Not Found');
-        }
-        await helpers.updateSellerById(seller.id, {
-            password: hash.hashPassword(password),
-            dateUpdated: new Date().toISOString(),
-        });
-        await tokenHelpers.deleteTokenById(tokenData.id);
-        return h.response({
-            status: 'success',
-            message: 'Password Updated',
-        });
-    } catch (err) {
-        throw err;
+    const { password, token } = request.payload;
+    const tokenData = await tokenHelpers.getTokenData(token);
+    if (!tokenData) {
+        return boom.notFound('Token Not Found');
     }
+    if (tokenData.referenceName !== tokenConstant.referenceName.SELLER) {
+        return boom.notFound('Token Not Found');
+    }
+    const seller = await helpers.getSellerById(tokenData.referenceId);
+    if (!seller) {
+        return boom.notAcceptable('Seller Not Found');
+    }
+    await helpers.updateSellerById(seller.id, {
+        password: hash.hashPassword(password),
+        dateUpdated: new Date().toISOString(),
+    });
+    await tokenHelpers.deleteTokenById(tokenData.id);
+    return h.response({
+        status: 'success',
+        message: 'Password Updated',
+    });
 };
 
 module.exports = {

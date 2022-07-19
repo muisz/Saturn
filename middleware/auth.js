@@ -1,6 +1,6 @@
 const boom = require('@hapi/boom');
-const jwt = require('../utils/token');
 const { PrismaClient } = require('@prisma/client');
+const jwt = require('../utils/token');
 
 const prisma = new PrismaClient();
 
@@ -48,7 +48,7 @@ const APIKeyAuth = (server, options) => ({
             console.log(err);
             return boom.unauthorized('Unauthorized API');
         }
-    }
+    },
 });
 
 module.exports = {
