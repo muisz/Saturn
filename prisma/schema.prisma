@@ -19,7 +19,7 @@ model ApiKey {
 
 model Token {
   id Int @id @default(autoincrement())
-  token String @db.VarChar(20) @unique
+  token String @db.VarChar(50) @unique
   referenceName String @db.VarChar(100)
   referenceId Int
   dateCreated DateTime @default(now())
