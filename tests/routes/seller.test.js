@@ -236,7 +236,10 @@ describe('GET /sellers/{id} [Success]', () => {
         response = await server.inject({
             method: 'GET',
             url: `/sellers/${user_response.result.data.id}`,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
     });
 
@@ -272,7 +275,10 @@ describe('GET /sellers/{id} [Failed: Not Found]', () => {
         response = await server.inject({
             method: 'GET',
             url: `/sellers/${user_response.result.data.id + 1}`,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
     });
 
@@ -312,7 +318,10 @@ describe('PUT /sellers/{id} [Success: Without Change Email]', () => {
             method: 'PUT',
             url: `/sellers/${user_response.result.data.id}`,
             payload: newPayload,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
     });
 
@@ -370,13 +379,19 @@ describe('PUT /sellers/{id} [Success: With Change Email]', () => {
         verifiedUser = await server.inject({
             method: 'GET',
             url: `/sellers/${user_response.result.data.id}`,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
         response = await server.inject({
             method: 'PUT',
             url: `/sellers/${user_response.result.data.id}`,
             payload: newPayload,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
     });
 
@@ -430,7 +445,10 @@ describe('PUT /sellers/{id} [Failed: Not Found]', () => {
             method: 'PUT',
             url: `/sellers/${user_response.result.data.id + 1}`,
             payload: newPayload,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
     });
 
@@ -474,7 +492,10 @@ describe('GET /sellers/verification/email [Success]', () => {
         updated_response = await server.inject({
             method: 'GET',
             url: `/sellers/${user_response.result.data.id}`,
-            headers,
+            headers: {
+                ...headers,
+                Authorization: `Bearer ${user_response.result.data.accessToken}`,
+            },
         });
     });
 
