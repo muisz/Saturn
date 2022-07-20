@@ -3,7 +3,6 @@ require('dotenv').config();
 const hapi = require('@hapi/hapi');
 const auth = require('./middleware/auth');
 const routes = require('./routes');
-const authPlugin = require('./plugins/auth');
 
 const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 const port = 8000;
