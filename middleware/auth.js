@@ -43,12 +43,8 @@ const APIKeyAuth = (server, options) => ({
             if (!api) {
                 return boom.unauthorized('Unauthorized API');
             }
-            return h.authenticated({
-                credentials: credentials ? { ...credentials, apikey } : { apikey },
-                artifacts: null,
-            });
+            return boom.unauthorized(null, 'jwtscheme');
         } catch (err) {
-            console.log(err);
             return boom.unauthorized('Unauthorized API');
         }
     },
