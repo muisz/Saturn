@@ -13,7 +13,7 @@ const server = hapi.server({
     port,
     routes: {
         files: {
-            relativeTo: path.join(__dirname, 'uploaded_file'),
+            relativeTo: path.join(__dirname, 'uploaded_files'),
         },
     },
 });
@@ -36,7 +36,7 @@ const start = async () => {
 
     server.route({
         method: 'GET',
-        path: '/uploaded_file/{param*}',
+        path: '/uploaded_files/{param*}',
         handler: {
             directory: {
                 path: '.',

@@ -28,7 +28,7 @@ const checkDirectory = (location) => {
 };
 
 const getLocalFile = (filename) => {
-    const directory = 'uploaded_file';
+    const directory = 'uploaded_files';
     const date = new Date();
     const year = date.getFullYear().toString();
     const month = `${date.getMonth() + 1}`;
