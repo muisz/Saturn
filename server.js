@@ -11,6 +11,11 @@ const port = 8000;
 const server = hapi.server({
     host,
     port,
+    routes: {
+        files: {
+            relativeTo: path.join(__dirname, 'uploaded_file'),
+        },
+    },
 });
 
 server.auth.scheme('jwtscheme', auth.JwtAuth);
@@ -27,6 +32,19 @@ const initialize = async () => {
 };
 
 const start = async () => {
+    await server.register(inert);
+
+    server.route({
+        method: 'GET',
+        path: '/uploaded_file/{param*}',
+        handler: {
+            directory: {
+                path: '.',
+                redirectToSlash: true,
+            },
+        },
+    });
+
     await server.start();
     console.log(`server started on ${host}:${port}`);
     return server;
