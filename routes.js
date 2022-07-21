@@ -1,4 +1,5 @@
 const sellerHandlers = require('./handlers/seller');
+const fileHandler = require('./handlers/file');
 
 const routes = [
     // seller handlers
@@ -60,6 +61,22 @@ const routes = [
         handler: sellerHandlers.forgotPasswordHandler,
         options: {
             auth: 'apikey',
+        },
+    },
+
+    // file
+    {
+        method: 'POST',
+        path: '/file',
+        handler: fileHandler.uploadFileHandler,
+        options: {
+            auth: {
+                strategies: ['apikey', 'jwt'],
+            },
+            payload: {
+                output: 'stream',
+                multipart: true,
+            },
         },
     },
 ];

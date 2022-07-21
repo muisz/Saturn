@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { v4: uuid4 } = require('uuid');
 
 const tokenType = {
     accessToken: 'ACCESS_TOKEN',
@@ -24,8 +25,14 @@ const decodeToken = (token, type = tokenType.accessToken) => {
     return data;
 };
 
+const generateStringToken = () => {
+    const uuid = uuid4();
+    return uuid.replace(/-/g, '');
+};
+
 module.exports = {
     generateToken,
     decodeToken,
     tokenType,
+    generateStringToken,
 };

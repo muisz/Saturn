@@ -25,13 +25,24 @@ model Token {
   dateCreated DateTime @default(now())
 }
 
+model File {
+  id Int @id @default(autoincrement())
+  url String @db.VarChar(255)
+  location String @db.VarChar(255)
+  dateCreated DateTime @default(now())
+
+  seller Seller[]
+  productMedia ProductMedia[]
+}
+
 model Seller {
   id Int @id @default(autoincrement())
   name String @db.VarChar(100)
   email String @db.VarChar(100) @unique
   password String @db.VarChar(255)
   phoneNumber String @db.VarChar(20) @unique
-  profilePicture String?
+  profilePicture File? @relation(fields: [profilePictureId], references: [id])
+  profilePictureId Int?
   isVerifiedEmail Boolean @default(false)
   isDeleted Boolean @default(false)
   lastLogin DateTime?
@@ -100,7 +111,8 @@ model ProductVariant {
 
 model ProductMedia {
   id Int @id @default(autoincrement())
-  url String?
+  file File @relation(fields: [fileId], references: [id])
+  fileId Int
   product Product @relation(fields: [productId], references: [id])
   productId Int
   isDeleted Boolean @default(false)

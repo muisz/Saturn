@@ -43,8 +43,8 @@ const APIKeyAuth = (server, options) => ({
             if (!api) {
                 return boom.unauthorized('Unauthorized API');
             }
-            const strategies = request.route.settings.auth.strategies;
-            if (strategies[strategies.length -1] !== options.name) {
+            const { strategies } = request.route.settings.auth;
+            if (strategies[strategies.length - 1] !== options.name) {
                 return boom.unauthorized(null, 'jwtsheme');
             }
             return h.authenticated({ credentials: { apikey }, artifacts: null });

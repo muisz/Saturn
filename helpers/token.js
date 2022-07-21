@@ -1,16 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const { v4: uuid4 } = require('uuid');
+const tokenUtil = require('../utils/token');
 
 const prisma = new PrismaClient();
 
-const generateToken = () => {
-    const uuid = uuid4();
-    return uuid.replace(/-/g, '');
-};
-
 const createToken = (data) => new Promise((resolve, reject) => {
     const tokenData = {
-        token: generateToken(),
+        token: tokenUtil.generateStringToken(),
         ...data,
     };
     prisma.token.create({ data: tokenData })

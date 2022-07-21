@@ -36,7 +36,7 @@ const createSellerHandler = async (request, h) => {
         });
         emailHelpers.sendEmail(
             seller.email,
-            "Email Verification",
+            'Email Verification',
             emailTemplate.emailVerification,
             {
                 name: seller.name,
@@ -152,7 +152,7 @@ const updateSellerHandler = async (request, h) => {
             });
             emailHelpers.sendEmail(
                 seller.email,
-                "Email Verification",
+                'Email Verification',
                 emailTemplate.emailVerification,
                 {
                     name: seller.name,
@@ -229,7 +229,7 @@ const sendEmailForgotPasswordTokenHandler = async (request, h) => {
     });
     emailHelpers.sendEmail(
         seller.email,
-        "Forgot Password",
+        'Forgot Password',
         emailTemplate.forgotPassword,
         {
             name: seller.name,

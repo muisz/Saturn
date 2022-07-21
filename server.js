@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 const hapi = require('@hapi/hapi');
+const inert = require('@hapi/inert');
+const path = require('path');
 const auth = require('./middleware/auth');
 const routes = require('./routes');
 
