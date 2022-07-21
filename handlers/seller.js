@@ -121,7 +121,7 @@ const updateSellerHandler = async (request, h) => {
             name,
             email,
             phoneNumber,
-            profilePicture,
+            profilePictureId,
         } = request.payload;
         if (!validation.validateEmail(email)) {
             return boom.badRequest('Invalid Email Address');
@@ -141,7 +141,7 @@ const updateSellerHandler = async (request, h) => {
             name,
             email,
             phoneNumber,
-            profilePicture,
+            profilePictureId,
             isVerifiedEmail: needEmailVerification ? false : seller.isVerifiedEmail,
             dateUpdated: new Date().toISOString(),
         });

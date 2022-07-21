@@ -10,7 +10,17 @@ const createSeller = (data) => new Promise((resolve, reject) => {
 });
 
 const getSellerById = (id) => new Promise((resolve, reject) => {
-    prisma.seller.findFirst({ where: { id: parseInt(id, 10), isDeleted: false } })
+    prisma.seller.findFirst({
+        where: { id: parseInt(id, 10), isDeleted: false },
+        include: {
+            profilePicture: {
+                select: {
+                    id: true,
+                    url: true,
+                },
+            },
+        },
+    })
         .then((resp) => resolve(resp))
         .catch((err) => reject(err));
 });
@@ -68,7 +78,7 @@ const serializer = (data) => ({
     name: data.name,
     email: data.email,
     phoneNumber: data.phoneNumber,
-    profilePicture: data.profilePicture,
+    profilePicture: data.profilePicture ? data.profilePicture.url : null,
     isVerifiedEmail: data.isVerifiedEmail,
     lastLogin: data.lastLogin,
     dateCreated: data.dateCreated,
