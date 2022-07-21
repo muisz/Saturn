@@ -14,8 +14,8 @@ const server = hapi.server({
 server.auth.scheme('jwtscheme', auth.JwtAuth);
 server.auth.scheme('apikeyscheme', auth.APIKeyAuth);
 
-server.auth.strategy('jwt', 'jwtscheme');
-server.auth.strategy('apikey', 'apikeyscheme');
+server.auth.strategy('jwt', 'jwtscheme', { name: 'jwt' });
+server.auth.strategy('apikey', 'apikeyscheme', { name: 'apikey' });
 
 server.route(routes);
 
